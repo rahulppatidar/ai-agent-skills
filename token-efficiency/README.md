@@ -2,7 +2,7 @@
 
 A reusable skill for reducing the total tokens needed to complete a task correctly. It helps agents reuse context, target tool calls, avoid repeated work, and give concise answers without losing necessary detail.
 
-It applies to coding, research, writing, data analysis, documents, tool workflows, multi-agent tasks, and general questions. It can also work alongside another skill while preserving that skill's required result.
+It applies to coding in any language, research, writing, data analysis, documents, tool workflows, multi-agent tasks, and general questions. It is a meta-skill: it improves how another skill executes while preserving that skill's required result.
 
 ## Installation
 
@@ -26,6 +26,12 @@ token-efficiency: balanced
 ```
 
 You can omit the mode. The skill starts with Balanced and adapts effort to the task's complexity, uncertainty, and risk.
+
+To combine it with another installed skill, for example `code-review`:
+
+```text
+Use code-review with token-efficiency: lean.
+```
 
 Installation enables discovery, but automatic activation depends on the client and task. For a recurring project preference, see the [optional persistent instruction example](../INSTALLATION.md#optional-persistent-preference). No agent-file edit is required for explicit invocation.
 
