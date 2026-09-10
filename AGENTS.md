@@ -11,6 +11,24 @@ Current skills:
 
 Human documentation: `README.md` catalogs the skills, `INSTALLATION.md` covers client installation, and `token-efficiency/MEASUREMENT.md` explains optional usage comparisons.
 
+## Authoring References
+
+- When creating or substantially revising a skill, consult the relevant sections of the [Agent Skills specification](https://agentskills.io/specification) for format requirements and [skill-creation best practices](https://agentskills.io/skill-creation/best-practices) for instruction design and evaluation. Reuse sections already retrieved in the current task; do not reload both pages for every minor edit.
+- Treat the specification as the format reference and best practices as guidance to apply proportionately. Use vendor documentation for installation, discovery, and client-specific behavior. These references do not override explicit user requirements or higher-priority instructions.
+- Review whether the skill adds useful guidance beyond the agent's existing knowledge, has a clear trigger and default workflow, and loads optional detail only when needed. Avoid adding instructions solely to fill a template.
+- Validate behavior on representative tasks before claiming stable readiness or effectiveness. Inspect execution traces as well as final outputs; record what was tested and any remaining gaps. For efficiency claims, compare against runs without the skill and include its context overhead.
+- If a reference cannot be accessed, use available validated guidance, disclose the limitation, and do not claim a fresh standards check. Keep these authoring references here rather than adding mandatory web lookups to every skill's runtime instructions.
+
+## Creation Checklist
+
+Use this checklist for new skills and substantial behavior changes. Scale validation to risk and scope; do not add boilerplate sections or extra files solely to satisfy the checklist.
+
+- Define the intended tasks, required inputs, expected deliverable, and completion criteria. State how material missing information should be handled.
+- Check discovery with representative prompts that should activate the skill and prompts that should not. Distinguish testing the description from explicitly invoking the skill.
+- Exercise a representative task, a missing-information case, and relevant failure handling. Check output correctness and completeness, execution traces, unnecessary work, and interaction with other skills when applicable.
+- Verify portability: declare necessary dependencies, test executable helpers when present, and ensure runtime references resolve within the installed skill folder without relying on this repository's surrounding files.
+- Before release, record tested agents and versions, results, remaining limitations, and evidence supporting the lifecycle stage. Make the applicable license clear when distributing a skill separately. Record checks not performed rather than implying they passed.
+
 ## Making Changes
 
 - Read the affected skill before editing it. Preserve unrelated work and existing metadata unless the task requires a change.
@@ -55,6 +73,7 @@ Keep entries factual. Record checks actually performed and any material limitati
 
 ## Change Record
 
+- 2026-09-10: Added explicit Agent Skills specification and best-practices references, plus a creation checklist covering task contracts, trigger checks, behavior, portability, licensing, and release evidence. Reviewed for consistency with the retrieved guidance and repository conventions; the diff passed whitespace checks. Skill behavior and metadata are unchanged; comparative token-efficiency testing remains outstanding before claiming stable readiness or measured savings.
 - 2026-09-10: Added shared installation guidance for ten agent families, including Windows, native installers, activation, and the shared installer's `--full-depth` flag for this layout. Expanded the root catalog and linked both skill READMEs. Added a token measurement guide covering usage sources, paired comparisons, quality checks, and unavailable metrics. Checked primary documentation, whitespace in six documents, eleven local links, and syntax of seven Bash examples. PowerShell was reviewed only; no live client installations or savings benchmarks were performed. Skill instructions, version, and stage are unchanged.
 - 2026-09-10: Added `token-efficiency/README.md` with human-facing usage, modes, expectations, and maintenance guidance. Established the per-skill README convention. Reviewed against `SKILL.md`; verified relative links and whitespace. Skill behavior and metadata are unchanged.
 - 2026-09-10: Moved version, stage, and owner under `metadata` in both skills, with string values. Both skills passed the skill-creator validator and separate metadata checks. Clarified that version increments and lifecycle stages are repository conventions; initial values are defaults, not permanent requirements.
