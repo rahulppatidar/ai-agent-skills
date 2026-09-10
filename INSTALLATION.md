@@ -109,6 +109,25 @@ These controls follow the [Codex](https://learn.chatgpt.com/docs/build-skills), 
 
 If the skill is missing, check the folder nesting, filename, client version, skill enablement, workspace trust, and the filesystem used by the running agent. Restart the client if discovery has not refreshed. A statement from the model that it is using the skill is weaker evidence than the client's skill list and visible skill-loading event.
 
+## Optional Persistent Preference
+
+Installation makes a skill discoverable. Clients that support automatic selection may load it when its description matches the task; installation does not guarantee activation on every task. Explicit invocation is appropriate when you want it used for a particular task. See the [Agent Skills loading model](https://agentskills.io/home).
+
+For a recurring project preference after installation, use the [post-installation setup prompt](token-efficiency/README.md#post-installation-setup-prompt). It verifies skill availability, selects the current agent's supported project file, and merges a single instruction section. For manual setup, use:
+
+```markdown
+For substantial tasks, use the installed token-efficiency skill when available.
+Start with Balanced and adapt effort to task complexity and risk unless the
+user specifies a mode. Preserve required verification and complete deliverables.
+If the skill is unavailable, say so briefly and continue with the task.
+```
+
+In Codex, use the project's `AGENTS.md`; in Claude Code, use `CLAUDE.md`. Follow the documented scope and precedence for [Codex instructions](https://learn.chatgpt.com/docs/agent-configuration/agents-md) and [Claude Code instructions](https://code.claude.com/docs/en/memory). For other clients, use their documented project rules or custom-instructions mechanism; do not assume they all read `AGENTS.md`.
+
+Merge this instruction into existing project guidance rather than replacing it. Keep the full skill in its installed folder instead of copying it into an always-loaded instruction file. The substantial-task default limits extra context on trivial questions; this is a suggested preference, not a claim of measured savings.
+
+This instruction is optional and does not install the skill, enforce execution, or enable token telemetry. Confirm skill discovery and loading as described above. Neither installation nor invocation modifies your project instructions automatically.
+
 ## Other Assistants and Hosted Sessions
 
 For an unlisted client, check its Agent Skills documentation or the shared installer's supported-agent list. Do not assume all extensions in VS Code, JetBrains, or another IDE read the same directories.

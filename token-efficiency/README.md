@@ -27,6 +27,43 @@ token-efficiency: balanced
 
 You can omit the mode. The skill starts with Balanced and adapts effort to the task's complexity, uncertainty, and risk.
 
+Installation enables discovery, but automatic activation depends on the client and task. For a recurring project preference, see the [optional persistent instruction example](../INSTALLATION.md#optional-persistent-preference). No agent-file edit is required for explicit invocation.
+
+## Post-Installation Setup Prompt
+
+Run this prompt in the agent and project where you want a persistent preference. It authorizes a project instruction edit; installing the skill alone does not make that edit.
+
+```text
+Configure this project to use the installed token-efficiency skill for
+substantial tasks.
+
+1. Identify the current agent and its supported project instruction file or
+   rules mechanism from the environment and current documentation. Use AGENTS.md
+   for Codex or CLAUDE.md for Claude Code; verify the mechanism for other agents.
+   If the agent cannot be identified reliably, ask me which one I use.
+2. Confirm token-efficiency is available to this agent and inspect its SKILL.md.
+   If it is missing or inaccessible, report that and stop setup without claiming
+   success. Do not install anything or change global settings.
+3. Read the applicable project instructions. Add or update one concise
+   token-efficiency section in the supported project file, creating that file
+   only if necessary. Preserve unrelated content and avoid duplicate rules.
+   Keep the instruction consistent with higher-priority requirements:
+
+   For substantial tasks, use the installed token-efficiency skill when available.
+   Start with Balanced and adapt effort to complexity and risk unless a mode is
+   specified by the user or an applicable skill. Preserve correctness, safety,
+   required verification, formatting, and complete deliverables. If unavailable,
+   say so briefly and continue with the task.
+
+4. Keep the full skill in its installed folder. Configure only this project and
+   the current agent; do not create files for other agents or alter SKILL.md.
+5. Verify the resulting file and instruction scope. Report the file changed,
+   the installed skill location, and how to confirm loading in a new session.
+   Distinguish file verification from activation actually observed in the client.
+```
+
+Re-running the prompt should update the same section. It does not enable telemetry or prove token savings. See [Measuring Token Savings](MEASUREMENT.md) for evaluation.
+
 ## Modes
 
 | Mode | Suitable tasks | Expected behavior |
