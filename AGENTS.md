@@ -1,0 +1,62 @@
+# Repository Instructions
+
+## Purpose and Layout
+
+This repository contains reusable AI agent skills. Each skill lives in a directory named after the skill and has a `SKILL.md` entrypoint with YAML frontmatter and Markdown instructions.
+
+Current skills:
+
+- `production-readiness-review/SKILL.md`: Review release readiness, operational risks, verification evidence, and recovery plans.
+- `token-efficiency/SKILL.md`: Reduce total conversation and tool token usage while preserving correctness, safety, usefulness, and completion. Supports Lean, Balanced (default), and Thorough modes.
+
+Human documentation: `README.md` catalogs the skills, `INSTALLATION.md` covers client installation, and `token-efficiency/MEASUREMENT.md` explains optional usage comparisons.
+
+## Making Changes
+
+- Read the affected skill before editing it. Preserve unrelated work and existing metadata unless the task requires a change.
+- Use lowercase, hyphen-separated directory and skill names. Include `name` and `description` in each new skill's YAML frontmatter.
+- Always include a `metadata` mapping in every skill's YAML frontmatter. For new skills, start with:
+
+  ```yaml
+  metadata:
+    version: "1.0"
+    stage: review
+    owner: Rahul Patidar
+  ```
+
+- Follow the skill format: `name` and `description` are required top-level fields; custom version, stage, and owner fields belong under `metadata`. The version and lifecycle rules here are repository conventions, not requirements of the skill format.
+- Store metadata values as strings. Treat version and stage as maintained values, not fixed constants: increment the minor version for compatible instruction or behavior changes and the major version for incompatible workflow or output-contract changes. Pure formatting or metadata relocation does not require a version bump.
+- Keep `stage` aligned with actual lifecycle status (for example, `draft`, `review`, `stable`, or `deprecated`). Reassess it when behavior changes; do not promote to `stable` solely because structural validation passes. Preserve the owner unless a change is requested.
+- Keep instructions concise, actionable, and self-contained. Add scripts, references, assets, or interface metadata only when they support a concrete need.
+- Include a concise human-facing `README.md` alongside each skill in this repository. Explain its purpose, usage, and relevant limitations without copying the full agent instructions. Keep it aligned when behavior changes. This is a repository convention; the skill format only requires `SKILL.md`.
+- Maintain shared client setup in `INSTALLATION.md`, with vendor links and a verification date. Distinguish documentation checks from installations actually tested. Keep measured token savings separate from estimates or workflow indicators; never publish percentages without comparable usage evidence. Human documentation changes alone do not require a skill version bump.
+- Preserve the skill's intended scope, explicit user requirements, authorization boundaries, and necessary verification.
+- Create skills in this repository. Install them into an agent's personal skill directory only when requested.
+
+## Validation
+
+- Check changed skills for valid frontmatter, matching directory/name values, the required `metadata.version`, `metadata.stage`, and `metadata.owner` strings, complete instructions, working referenced paths, and unresolved placeholders.
+- When the local skill-creator validator is available, run it for each new or changed skill:
+
+  ```bash
+  python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" <skill-directory>
+  ```
+
+- The validator checks structure; also review whether the instructions satisfy the requested behavior and preserve constraints. If it is unavailable, perform those checks manually and report that limitation.
+- The bundled validator accepts `metadata` but does not validate its contents; check the required metadata fields separately.
+- Run `git diff --check` for tracked edits and inspect newly created files as well. Run executable helpers or relevant behavioral checks when changed behavior warrants them.
+- The repository currently has no shared automated test suite or build step.
+
+## Keep This File Current
+
+Update this `AGENTS.md` with every repository change before handing work back to the user. Update affected layout, conventions, or validation guidance and add a concise dated entry below describing the final change and its validation status. Group related edits from one task into one entry; updating this file does not require a separate recursive entry.
+
+Keep entries factual. Record checks actually performed and any material limitations. Do not duplicate entire skill instructions or conversation history here.
+
+## Change Record
+
+- 2026-09-10: Added shared installation guidance for ten agent families, including Windows, native installers, activation, and the shared installer's `--full-depth` flag for this layout. Expanded the root catalog and linked both skill READMEs. Added a token measurement guide covering usage sources, paired comparisons, quality checks, and unavailable metrics. Checked primary documentation, whitespace in six documents, eleven local links, and syntax of seven Bash examples. PowerShell was reviewed only; no live client installations or savings benchmarks were performed. Skill instructions, version, and stage are unchanged.
+- 2026-09-10: Added `token-efficiency/README.md` with human-facing usage, modes, expectations, and maintenance guidance. Established the per-skill README convention. Reviewed against `SKILL.md`; verified relative links and whitespace. Skill behavior and metadata are unchanged.
+- 2026-09-10: Moved version, stage, and owner under `metadata` in both skills, with string values. Both skills passed the skill-creator validator and separate metadata checks. Clarified that version increments and lifecycle stages are repository conventions; initial values are defaults, not permanent requirements.
+- 2026-09-10: Required `version: 1.0`, `stage: review`, and `owner: Rahul Patidar` in every skill and added them to `token-efficiency`. Parsed both skills' YAML and confirmed the required values. Documented the bundled validator's rejection of these custom top-level fields.
+- 2026-09-10: Added `token-efficiency/SKILL.md` with context, tool, output, adaptive-mode, and quality guidance. Passed the skill-creator validator using `python3`; reviewed coverage against the requested eleven sections. Added this root `AGENTS.md` with repository conventions and the requirement to maintain it with every change.

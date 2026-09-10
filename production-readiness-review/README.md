@@ -64,6 +64,8 @@ production-readiness-review/
 
 ## Installation
 
+For Codex, Copilot, Cursor, Gemini CLI, Windsurf, Cline, OpenCode, Antigravity, Junie, and Windows setup, see the shared [installation guide](../INSTALLATION.md). Substitute `production-readiness-review` for the example skill name. Claude Code examples follow.
+
 ### Claude Code — personal skill
 
 Copy the folder to:

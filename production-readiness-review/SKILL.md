@@ -1,9 +1,10 @@
 ---
 name: production-readiness-review
 description: Review a feature, service, API, infrastructure change, or application before production release. Use when evaluating deployment safety, rollback, observability, reliability, capacity, data safety, external dependencies, testing evidence, and operational readiness.
-version: 1.0
-stage: review
-owner: Rahul Patidar
+metadata:
+  version: "1.0"
+  stage: review
+  owner: Rahul Patidar
 ---
 
 ---
