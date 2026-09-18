@@ -4,6 +4,7 @@ Reusable skills for AI coding agents and assistants. Each skill includes agent i
 
 | Skill | Purpose |
 | --- | --- |
+| [Find Duplicate Logic](find-duplicate-logic/README.md) | Find exact, semantic, or partially overlapping behavior without mechanically enforcing DRY. |
 | [Token Efficiency](token-efficiency/README.md) | Reduce unnecessary context, tool calls, and output while preserving task quality. |
 | [Production Readiness Review](production-readiness-review/README.md) | Assess release risks, operational readiness, verification, and recovery. |
 

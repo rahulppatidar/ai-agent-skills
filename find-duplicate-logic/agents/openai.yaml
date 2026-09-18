@@ -1,0 +1,11 @@
+interface:
+  display_name: "Find Duplicate Logic"
+  short_description: "Find behaviorally duplicated business logic"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  default_prompt: "Use $find-duplicate-logic to check whether this behavior already exists elsewhere in the repository."
+policy:
+  products:
+  - "CHAT"
+  - "CODEX"
+  allow_implicit_invocation: true
