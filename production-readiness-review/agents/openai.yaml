@@ -1,0 +1,9 @@
+interface:
+  display_name: "Production Readiness Review"
+  short_description: "Review operational readiness before release"
+  default_prompt: "Use $production-readiness-review to assess this change for production release risks and readiness."
+policy:
+  products:
+  - "CHAT"
+  - "CODEX"
+  allow_implicit_invocation: true

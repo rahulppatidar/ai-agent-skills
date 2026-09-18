@@ -23,6 +23,10 @@ It deliberately distinguishes:
 - partial overlap;
 - similar but not duplicate.
 
+## When to use
+
+Use this skill before implementing a business rule, reviewing a pull request or working-tree diff, or extracting a shared helper—especially when validation, eligibility, calculations, state transitions, or side-effect logic may already exist under another name.
+
 ## Example prompts
 
 For reliable activation, explicitly invoke the installed skill using the syntax in [Client compatibility](#client-compatibility). For example, in Codex:
@@ -81,9 +85,11 @@ See the repository's [installation guide](../INSTALLATION.md) for shared-install
 
 All three clients can select the skill automatically from its `description`. Explicit invocation is more reliable when the check is important. These locations and invocation methods were checked against the three vendors' documentation on 2026-09-18; runtime behavior outside Codex has not yet been tested for this skill.
 
-## Design principle
+## Limitations
 
-The skill is diagnostic by default. It does **not** refactor automatically and it does **not** assume all duplication should be removed.
+This skill is not intended for byte-for-byte duplicate files or generic copy/paste detection. It can be unnecessary in very small codebases and depends on sufficient domain context to distinguish intentional policy differences.
+
+The skill is diagnostic by default. It does **not** refactor automatically and does **not** assume all duplication should be removed.
 
 ## Validation status
 
