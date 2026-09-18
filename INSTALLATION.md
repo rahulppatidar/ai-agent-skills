@@ -1,8 +1,10 @@
 # Installing Skills
 
-These instructions apply to `token-efficiency`, `production-readiness-review`, and `find-duplicate-logic`. Examples use `token-efficiency`; substitute another skill directory name to install it.
+These instructions apply to `token-efficiency`, `production-readiness-review`, `find-duplicate-logic`, and `git-secret-guard`. Examples use `token-efficiency`; substitute another skill directory name to install it. Installing `git-secret-guard` makes the workflow available to the agent; scanner binaries and repository Git hooks require separate setup as described in its README.
 
 The general installation table was checked on 2026-09-10; Codex, Claude Code, and Cursor skill guidance was rechecked on 2026-09-18. Paths below are documented by the linked vendors; installation has not been tested inside every listed client. Use a current client version with Agent Skills support. The agent or extension determines support, not the IDE alone.
+
+For Git Secret Guard, use its standalone [installation and first-run guide](git-secret-guard/SETUP.md) for the four main clients, contributor hook activation, and a one-confirmation prerequisite bootstrap. The bootstrap detects macOS/Linux/WSL or Windows, reuses compatible tools, installs only what the selected workflow requires, and binds approval to an exact plan ID. Claude Code, Codex, Cursor, and Copilot documentation for that guide was checked on 2026-09-18; client and system-package installations were not executed.
 
 ## Shared Installer
 

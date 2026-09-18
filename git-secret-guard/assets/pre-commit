@@ -1,0 +1,6 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-3.0-only
+# Install only after provisioning Gitleaks and configuring its absolute path.
+gitleaks_path=$(git config --local --get secretguard.gitleaksPath || true)
+[ -n "$gitleaks_path" ] || gitleaks_path=gitleaks
+exec "$gitleaks_path" git --pre-commit --staged --redact=100 --no-banner .

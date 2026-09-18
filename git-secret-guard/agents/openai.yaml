@@ -1,0 +1,9 @@
+interface:
+  display_name: "Git Secret Guard"
+  short_description: "Catch credentials before they enter Git history"
+  default_prompt: "Use $git-secret-guard to check my staged changes for exposed credentials and explain any blockers without revealing secret values."
+policy:
+  products:
+    - "CHAT"
+    - "CODEX"
+  allow_implicit_invocation: true

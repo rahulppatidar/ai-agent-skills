@@ -1,0 +1,9 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-3.0-only
+# Install only after provisioning .secret-guard/scan.py and configuring paths.
+# Git supplies all ref updates on stdin; leave it intact for the helper.
+python_path=$(git config --local --get secretguard.pythonPath || true)
+gitleaks_path=$(git config --local --get secretguard.gitleaksPath || true)
+[ -n "$python_path" ] || python_path=python3
+[ -n "$gitleaks_path" ] || gitleaks_path=gitleaks
+exec "$python_path" .secret-guard/scan.py pre-push --hook --path . --gitleaks "$gitleaks_path"
