@@ -1,0 +1,40 @@
+# Validation evidence
+
+## Status: review, 2026-09-21
+
+Version 1.1 was authored and evaluated in a Codex session; the exact hosted model build is not exposed. The local environment used Linux x86_64, Python 3.10.12, and Git 2.34.1. This is not a cross-client certification and no general compression percentage is published.
+
+## Repeatable checks
+
+From the repository root:
+
+```bash
+python3 -B -m unittest discover -s compact-agent-docs/tests -v
+python3 compact-agent-docs/scripts/doc_guard.py inventory compact-agent-docs
+python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" compact-agent-docs
+```
+
+Seven helper tests cover discovery of standard, linked, unlinked, business, and custom Markdown; default dependency-tree exclusion; missing targets and broken local links; ignoring links shown only as code examples; strict failure when commands, URLs, link targets, or numeric values disappear; and the explicit refusal to claim semantic equivalence after a structural check.
+
+A synthetic approved checkout PRD exercised the Apply workflow. The compacted fixture retained status, owner, target date, goal, four identified requirements, acceptance conditions, risk, and open question while removing repeated prose. It decreased from 1,084 to 772 characters (28.8%); bidirectional manual review and strict structural/literal comparison passed. An intentionally unsafe 194-character variant dropped the date and `5000 USD` threshold; strict comparison failed and reported the missing numeric values. This fixture demonstrates the guardrails, not an expected compression rate for other documents.
+
+## Scenario review
+
+The instructions were reviewed against these representative cases:
+
+| Case | Expected behavior |
+| --- | --- |
+| Compact a named `AGENTS.md` | Apply only to that file and its direct dependencies; preserve scope, force, commands, and exceptions. |
+| Audit all repository docs | Inventory all in-scope Markdown before following links; include unlinked custom files; do not edit. |
+| Compact a PRD and policy | Preserve requirements, criteria, owners, dates, decisions, risks, approvals, and unresolved questions; flag domain-sensitive equivalence. |
+| Encounter license or generated API docs | Classify as exact-sensitive or generated and default to audit-only. |
+| Request a fixed 50% reduction | Refuse to sacrifice meaning; report the safe reduction actually achieved or retain the source. |
+| Find contradictory requirements | Preserve and report both rather than silently selecting one. |
+| Reword a command or remove a link | Flag the protected-literal difference for review. |
+| Ask for a summary that may omit detail | Do not select this skill solely for ordinary summarization. |
+
+## Remaining gaps
+
+Actual automatic invocation, installation, and runtime behavior have not been tested in Claude Code, Cursor, or GitHub Copilot. The workflow has not yet been forward-tested on a large real-world documentation repository or reviewed by legal, compliance, product, and policy domain owners. The helper does not parse full Markdown ASTs, validate remote URLs or heading anchors, honor every client-specific import syntax, calculate model tokens, or prove natural-language equivalence. Windows and macOS execution have not been tested. These gaps keep the lifecycle stage at `review`.
+
+The bundled skill-creator validator, metadata/UI assertions, local-link inventory, Python syntax, seven unit tests, unresolved-placeholder search, and whitespace checks passed. A copied standalone folder passed its tests and inventory with no broken local links. Its README is self-contained, has no repository-relative setup or license dependency, and links to the official GNU GPLv3 page checked on 2026-09-21. Version 1.1 also received a manual dependency-contract review confirming that Python and Git remain optional and that the instructions prohibit installing them without a separate request and specific approved plan. The standalone `skills-ref` validator was unavailable. No live client or dependency installation occurred.

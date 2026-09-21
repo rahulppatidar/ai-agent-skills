@@ -4,6 +4,7 @@ Reusable skills for AI coding agents and assistants. Each skill includes agent i
 
 | Skill | Purpose |
 | --- | --- |
+| [Compact Agent Docs](compact-agent-docs/README.md) | Reduce Markdown and routine agent context while preserving material meaning. |
 | [Find Duplicate Logic](find-duplicate-logic/README.md) | Find exact, semantic, or partially overlapping behavior without mechanically enforcing DRY. |
 | [Git Secret Guard](git-secret-guard/README.md) | Catch exposed credentials, protect commits, and handle accidental leaks. |
 | [Token Efficiency](token-efficiency/README.md) | Reduce unnecessary context, tool calls, and output while preserving task quality. |

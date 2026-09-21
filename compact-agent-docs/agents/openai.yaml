@@ -1,0 +1,9 @@
+interface:
+  display_name: "Compact Agent Docs"
+  short_description: "Compact Markdown without changing its meaning"
+  default_prompt: "Use $compact-agent-docs to reduce the context footprint of these Markdown documents while preserving every material meaning."
+policy:
+  products:
+  - "CHAT"
+  - "CODEX"
+  allow_implicit_invocation: true
