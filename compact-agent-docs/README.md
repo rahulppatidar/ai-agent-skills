@@ -86,6 +86,14 @@ Install into the filesystem of the running environment for WSL, containers, remo
 
 ## Usage
 
+Invoke the skill by itself to compact agent-related documentation in the current repository:
+
+```text
+$compact-agent-docs
+```
+
+With no path or mode, the skill resolves the current repository root, inventories it, and applies conservative compaction to clearly agent-facing files such as `AGENTS.md`, `CLAUDE.md`, client rules, `SKILL.md` entrypoints, and operational documents they directly reference. It reports the inferred scope before editing. It asks for a path only when no agent-facing file is found, the root cannot be resolved, or candidate inclusion is materially ambiguous; it does not silently expand the default into all project or business Markdown.
+
 Audit before making changes:
 
 ```text
@@ -121,7 +129,7 @@ Start a new session, open the client's skill list or picker, and confirm `compac
 - restart or reload the client after installation;
 - avoid duplicate copies in multiple supported roots, which can make updates ambiguous.
 
-If Python is unavailable, the agent can still follow the semantic workflow and perform manual inventory and diff checks; it must report that the helper was not run. Windows and macOS execution and live installation in the four clients remain untested for version 1.1.
+If Python is unavailable, the agent can still follow the semantic workflow and perform manual inventory and diff checks; it must report that the helper was not run. Windows and macOS execution and live installation in the four clients remain untested for version 1.2.
 
 ## Limitations
 
@@ -133,7 +141,7 @@ Client discovery paths and import behavior differ. The core `SKILL.md` follows t
 
 ## Validation status
 
-Version 1.1 is at the `review` stage. See [VALIDATION.md](VALIDATION.md) for tested behavior and remaining gaps.
+Version 1.2 is at the `review` stage. See [VALIDATION.md](VALIDATION.md) for tested behavior and remaining gaps.
 
 ## Author and license
 

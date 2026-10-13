@@ -4,7 +4,7 @@ Use this reference for repository-wide, directory-wide, or otherwise multi-file 
 
 ## Discovery order
 
-1. Resolve the user-specified roots and any repository instructions governing them.
+1. Resolve the root and any repository instructions governing it. When the user supplies no path, use the current Git worktree root, or otherwise the current workspace or working directory; never search above it.
 2. Inventory all in-scope `.md` and `.markdown` files. Include `.mdc` and similar Markdown-compatible rule files only when the request or client scope includes them.
 3. Exclude build output, dependency trees, caches, vendored content, and generated documentation unless the user includes them.
 4. Classify each candidate using the groups below.
@@ -12,6 +12,18 @@ Use this reference for repository-wide, directory-wide, or otherwise multi-file 
 6. Retain unlinked files in the inventory. An orphan may be intentional, newly created, or loaded directly by a client.
 
 Do not start from links alone: they cannot reveal orphaned documents, path-based client discovery, or files referenced by configuration rather than Markdown.
+
+## Default agent-document scope
+
+For an explicit invocation with no path or task details, discover before asking a question. The default edit scope is:
+
+- standard agent-facing and always-loaded candidates listed below;
+- `SKILL.md` entrypoints and agent resource Markdown under client-specific skill directories;
+- directly referenced local documents needed to preserve the operational meaning of those files.
+
+Keep nested instruction files and different clients' rules in separate applicability groups even when compacting them together. Do not automatically add ordinary READMEs, business documents, or every Markdown file in the repository. Inventory may reveal them, but they enter the edit scope only when the user requests them or an agent-facing file depends on them.
+
+If the set is non-empty and clearly agent-facing, state the root and candidate paths and continue. Ask only if there is no such candidate, the repository root cannot be determined, or a candidate's inclusion is materially ambiguous. When no standard candidate exists, list likely custom candidates so the user can choose from evidence rather than supply a path blindly.
 
 ## Common standard files
 

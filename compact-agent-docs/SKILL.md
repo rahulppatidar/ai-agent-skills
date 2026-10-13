@@ -3,7 +3,7 @@ name: compact-agent-docs
 description: Compact Markdown documentation in agent-first repositories while preserving its material meaning and operational behavior. Use when reducing the character or context footprint of AGENTS.md, CLAUDE.md, SKILL.md, READMEs, project documentation, or business documents such as PRDs, BRDs, policies, SOPs, proposals, and decision records. Discover standard and user-created linked or unlinked files, remove only proven redundancy, validate source-to-output coverage, and flag uncertain changes instead of silently dropping content. Do not use for summarization that is allowed to omit detail.
 license: GPL-3.0-only
 metadata:
-  version: "1.1"
+  version: "1.2"
   stage: "review"
   owner: "Rahul Patidar"
   author: "Rahul Patidar"
@@ -43,6 +43,8 @@ Infer the mode from the request:
 
 Do not expand a named-file request into repository-wide edits. When the user requests "the docs" or another unclear broad set, inventory first and identify the proposed scope before editing files whose inclusion would materially change the result.
 
+An explicit invocation with no path, root, mode, or other instruction defaults to Apply for the automatically discovered agent-document scope in the current repository. Do not ask the user to name a file before performing discovery. State the inferred root and scope before editing, then proceed unless inclusion is materially ambiguous. A bare invocation does not authorize project, business, legal, generated, or other general Markdown outside that default scope.
+
 Treat legal terms, licenses, regulatory or compliance text, signed or approved records, generated or vendored files, archival logs, and published quotations as exact-sensitive. Audit them by default. Rewrite them only when the user explicitly includes them and equivalence can be reviewed; otherwise preserve them verbatim or exclude them with an explanation.
 
 Never stage, commit, publish, or delete originals unless separately requested.
@@ -57,13 +59,13 @@ Check whether optional tools already exist before using them. Do not install, up
 
 ### 1. Establish the objective and measurement
 
-Confirm the requested scope and whether the user wants fewer characters, fewer tokens, less always-loaded context, less duplication, or a combination.
+Determine the requested scope and whether the user wants fewer characters, fewer tokens, less always-loaded context, less duplication, or a combination. If no measurement is specified, optimize for fewer characters and less routine context where safe, then report those as separate outcomes. Do not ask the user to choose a measurement merely because it was omitted.
 
 Characters, bytes, words, and tokens are different measures. Report token reduction only when measured with an identified tokenizer. Moving detail behind a conditional reference may reduce routine context while leaving total repository size unchanged; label these separately.
 
 ### 2. Discover documents before editing
 
-For a named file, inspect that file and the documents it directly depends on. For repository, directory, or unclear multi-file scope, read [references/discovery.md](references/discovery.md), then:
+For a named file, inspect that file and the documents it directly depends on. For repository, directory, omitted, or unclear multi-file scope, read [references/discovery.md](references/discovery.md), then:
 
 1. inventory all in-scope `.md`, `.markdown`, and requested Markdown-compatible rule files;
 2. classify standard agent, project, business, exact-sensitive, generated, and custom documents;
@@ -72,6 +74,16 @@ For a named file, inspect that file and the documents it directly depends on. Fo
 5. include unlinked user-created files in the inventory rather than assuming the link graph is complete.
 
 Use `python3 scripts/doc_guard.py inventory <root>` when Python is available. Its output is evidence for discovery, not authority about scope or meaning.
+
+When no path or root is supplied:
+
+1. use the current Git worktree root when one exists; otherwise use the current workspace or working directory;
+2. do not scan above that root or include the installed copy of this skill unless it is inside the target repository;
+3. select standard agent instructions, client rule or memory files, reusable `SKILL.md` files, and local documents they directly reference for their operational meaning;
+4. include all clearly agent-facing candidates when several clients or nested scopes are present, but keep their applicability boundaries distinct;
+5. exclude ordinary project and business Markdown from the default edit scope unless it is a necessary dependency of an agent-facing document.
+
+If this produces a coherent non-empty set, identify it and continue without asking for a path. Ask for direction only when the root cannot be resolved, no agent-facing candidate exists, or including an ambiguous candidate would materially change the result. In the no-candidate case, report what was searched and show any likely custom candidates before asking.
 
 ### 3. Preserve a recoverable baseline
 

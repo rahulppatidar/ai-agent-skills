@@ -1,7 +1,7 @@
 interface:
   display_name: "Compact Agent Docs"
   short_description: "Compact Markdown without changing its meaning"
-  default_prompt: "Use $compact-agent-docs to reduce the context footprint of these Markdown documents while preserving every material meaning."
+  default_prompt: "Use $compact-agent-docs to discover and compact agent-related Markdown in the current repository while preserving every material meaning; when I name no path, infer the scope and proceed without asking me to choose a file."
 policy:
   products:
   - "CHAT"
